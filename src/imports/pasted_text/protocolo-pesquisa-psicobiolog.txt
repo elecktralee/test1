@@ -1,0 +1,99 @@
+Eu quero que você execute uma tarefa completa de criação de protocolo de pesquisa acadêmica com documentos éticos e instrumentos de coleta de dados, com um plano de personalização detalhado para adaptar tudo ao meu projeto específico.
+
+CONTEXTO DO PROJETO BASE:
+Tenho um projeto de pesquisa de mestrado na Universidade de São Paulo (FFCLRP/USP Ribeirão Preto), Programa de Pós-Graduação em Psicobiologia. O projeto investiga a relação entre cybercondria, tomada de decisão (Iowa Gambling Task) e autoeficácia percebida em adultos jovens de 16 a 25 anos. Orientador: Prof. Dr. José Aparecido da Silva. Pesquisadora: Érica Silva Mascarenhas.
+
+OBJETIVO GERAL DA TAREFA:
+Criar um conjunto completo de documentos de pesquisa personalizáveis, incluindo documentos éticos (TCLE e TALE), protocolo de questionários em Word, script de automação para Google Forms e guia de integração do Iowa Gambling Task (IGT), com um plano de personalização claro para que qualquer pesquisador possa adaptar os documentos ao seu próprio projeto.
+
+PARTE 1 — DOCUMENTOS ÉTICOS (3 arquivos em PDF)
+
+Gere três rascunhos em PDF com base nas diretrizes da Plataforma Brasil (Resolução CNS 466/12) e nos padrões da USP Ribeirão Preto:
+
+1. TCLE para Participantes Maiores de Idade (18 a 25 anos)
+Deve conter obrigatoriamente: título da pesquisa, pesquisador responsável, orientador, instituição, introdução, objetivos, procedimentos detalhados (questionários CSS-12, GSE, BAI e tarefa IGT), riscos e desconfortos, benefícios, confidencialidade, voluntariedade e direito de recusa, contatos (pesquisador, orientador e CEP), e campo de assinatura.
+
+2. TCLE para Pais/Responsáveis de Participantes Menores (16 e 17 anos)
+Mesma estrutura do TCLE para maiores, mas com linguagem voltada ao responsável legal, referindo-se ao menor como terceiro. Deve incluir campo de assinatura do responsável.
+
+3. TALE — Termo de Assentimento Livre e Esclarecido para Menores (16 e 17 anos)
+Linguagem simplificada, acessível e direta, voltada ao adolescente. Deve explicar o estudo de forma clara, garantir o direito de recusa e incluir campo de assinatura do menor.
+
+PLANO DE PERSONALIZAÇÃO DOS DOCUMENTOS ÉTICOS:
+Todos os campos entre colchetes devem ser listados em um índice de personalização ao final de cada documento, indicando: nome do campo, tipo de informação esperada e exemplo. Os campos personalizáveis incluem: [TÍTULO DA PESQUISA], [NOME DO PESQUISADOR], [NOME DO ORIENTADOR], [INSTITUIÇÃO], [E-MAIL DO PESQUISADOR], [E-MAIL DO ORIENTADOR], [DADOS DO CEP], [TEMPO ESTIMADO DE PARTICIPAÇÃO], [NOME DO PARTICIPANTE], [RG DO PARTICIPANTE].
+
+PARTE 2 — PROTOCOLO COMPLETO EM WORD (.docx)
+
+Crie um documento Word robusto e profissional com duração estimada de 30 a 40 minutos de aplicação, contendo as seguintes seções:
+
+Seção 1 — Abertura e Instruções Iniciais
+Texto formal e ético de boas-vindas ao participante, explicando o objetivo, a duração, a confidencialidade e o caráter voluntário da participação.
+
+Seção 2 — Questionário Sociodemográfico e de Saúde
+Perguntas sobre: idade, sexo, escolaridade, frequência de uso da internet para saúde, diagnóstico prévio de transtornos neurológicos ou psiquiátricos, uso atual de medicamentos psicotrópicos.
+
+Seção 3 — CSS-12 (Cyberchondria Severity Scale, versão curta)
+Referência: McElroy & Shevlin (2014); Adaptação Brasileira: Silva et al. (2016).
+Formato: grade de múltipla escolha (Likert de 5 pontos: 1=Nunca a 5=Sempre).
+Inclua os 12 itens em português brasileiro com instrução clara de preenchimento.
+
+Seção 4 — GSE (General Self-Efficacy Scale)
+Referência: Schwarzer & Jerusalem (1995).
+Formato: grade de múltipla escolha (Likert de 4 pontos: 1=Não é verdade a 4=Totalmente verdade).
+Inclua os 10 itens validados em português com instrução clara.
+
+Seção 5 — BAI (Beck Anxiety Inventory)
+Referência: Beck et al. (1988); Versão Brasileira: Casa do Psicólogo.
+Formato: grade de múltipla escolha (0=Absolutamente não a 3=Gravemente).
+Inclua os 21 sintomas com instrução clara referente à última semana.
+
+Seção 6 — Guia de Implementação do Iowa Gambling Task (IGT)
+Inclua: instruções realistas para o participante (em português, como seriam apresentadas na tela), estrutura técnica dos 4 baralhos (A, B, C, D) com recompensas e punições, resultado esperado a longo prazo (vantajoso vs. desvantajoso), passo a passo de integração ao formulário online via ID de participante, recomendação de plataformas (PsychoPy/Pavlovia, Inquisit, PsyToolkit), e cálculo do escore líquido (C+D menos A+B).
+
+Seção 7 — Referências Acadêmicas
+Todas as referências formatadas em ABNT para uso direto no artigo.
+
+PLANO DE PERSONALIZAÇÃO DO WORD:
+Ao final do documento, inclua uma tabela de personalização com: número do campo, localização no documento, descrição do campo, exemplo de preenchimento. Campos incluem: nome do projeto, pesquisador, orientador, instituição, CEP, tempo estimado, link do IGT, ID de participante.
+
+PARTE 3 — SCRIPT GOOGLE APPS SCRIPT (.gs)
+
+Gere um script completo e funcional em Google Apps Script que, ao ser executado no Google Drive, crie automaticamente um Google Forms com:
+
+1. Título e descrição do formulário
+2. Seção de abertura com instruções
+3. Questionário sociodemográfico com perguntas de múltipla escolha e campo de texto para idade
+4. CSS-12 em formato de grade (checkboxGrid ou radioGrid com 5 colunas)
+5. GSE em formato de grade com 4 colunas
+6. BAI em formato de grade com 4 colunas (0 a 3)
+7. Seção de instruções para o IGT com campo de texto para ID do participante e campo de link para a plataforma IGT
+8. Mensagem de encerramento e agradecimento
+
+O script deve incluir comentários explicativos em português em cada seção para facilitar a personalização posterior.
+
+PLANO DE PERSONALIZAÇÃO DO SCRIPT:
+No início do script, crie um bloco de configuração (CONFIG) com variáveis que o pesquisador deve preencher antes de executar, incluindo: TITULO_FORMULARIO, NOME_PESQUISADOR, NOME_ORIENTADOR, INSTITUICAO, EMAIL_CONTATO, LINK_IGT, TEMPO_ESTIMADO.
+
+PARTE 4 — GUIA DE PERSONALIZAÇÃO GERAL (documento separado em PDF)
+
+Crie um documento PDF de orientação que explique, passo a passo, como personalizar cada um dos documentos gerados. O guia deve conter:
+
+1. Checklist de personalização para os TCLEs e TALE
+2. Checklist de personalização para o documento Word
+3. Instruções de como executar o script no Google Apps Script
+4. Como vincular o Google Forms ao IGT via ID de participante
+5. Orientações sobre submissão ao CEP via Plataforma Brasil
+6. Aviso sobre direitos autorais das escalas (CSS-12, GSE, BAI) e necessidade de autorização dos autores originais quando aplicável
+
+REQUISITOS TÉCNICOS E DE QUALIDADE:
+Todos os documentos devem estar em português brasileiro. Os documentos éticos devem estar em conformidade com a Resolução CNS 466/12 e com os padrões da Plataforma Brasil. As escalas devem ser apresentadas conforme suas versões validadas para o Brasil. O documento Word deve ser gerado via python-docx com formatação profissional (fonte Arial 11pt, tabelas com bordas, títulos hierárquicos). O script .gs deve ser funcional e comentado. O guia de personalização deve ser claro o suficiente para ser usado por um pesquisador sem conhecimento técnico avançado.
+
+ENTREGÁVEIS FINAIS:
+1. tcle_maiores.pdf
+2. tcle_pais_responsaveis.pdf
+3. tale_menores.pdf
+4. Protocolo_Pesquisa_Cybercondria_IGT.docx
+5. create_google_form_script.gs
+6. Guia_Personalizacao.pdf
+
+Ao concluir, envie todos os arquivos como anexos e informe quais campos ainda precisam ser preenchidos manualmente antes do uso em campo ou submissão ao CEP.

@@ -1,0 +1,26 @@
+Gostaríamos de convidá-lo a participar da pesquisa “Tratamento clínico da obesidade com uso de medicamentos injetáveis e seu efeito na qualidade de vida: estudo exploratório”, no qual a pesquisadora responsável é a Profa. Dra. Silvia Helena de Carvalho Sales Peres, a ser realizada pela Faculdade de Odontologia de Bauru - Universidade de São Paulo, Bauru, São Paulo. O presente estudo tem por objetivo identificar indivíduos que estão utilizando medicamentos injetáveis para controle e manutenção da perda de peso e entender os efeitos do uso de medicamentos injetáveis na qualidade de vida.
+
+A coleta dos dados será realizada via questionário no Google Forms com perguntas objetivas sobre qualidade de vida, hábitos alimentares e tratamentos clínicos da obesidade. Queremos identificar indivíduos que estão utilizando medicamentos injetáveis (por meio de agulha na pele) para controle e manutenção da perda de peso e entender os efeitos do uso na qualidade de vida relacionada à Saúde bucal. 
+
+Os dados dos participantes ficarão sob sigilo, sendo acessado somente pelos responsáveis da pesquisa, de forma a proteger a sua imagem e respeitando os seus valores morais, culturais, religiosos, éticos e sociais. Os futuros resultados da pesquisa poderão ser publicados e, mesmo assim, sua identidade será preservada.
+
+Toda pesquisa com seres humanos envolve riscos aos participantes. Nesta pesquisa os riscos são   reduzidos, uma vez que envolve apenas a aplicação de questionários e que há a garantia do anonimato. Como esta pesquisa se trata de aplicação de questionários, o participante voluntário terá que dispor de um tempo para responder, o que poderá gerar algum desconforto. Se o Sr (a) se sentir cansado ou constrangido ao responder o questionário, poderá parar a qualquer momento ou optar por não responder alguma pergunta em qualquer etapa da pesquisa sem nenhum prejuízo. Há também o risco de exposição dos dados, no entanto, os pesquisadores se comprometem a guardar sigilo das informações fornecidas pelo participante.
+
+O participante voluntário será beneficiado com esta pesquisa, visto que, após a conclusão, ele terá acesso aos resultados e conclusões do estudo, podendo verificar qual a conduta mais apropriada para utilizar na sua rotina diária, podendo melhorar seus hábitos comportamentais, favorecendo seu rendimento profissional, melhorando a qualidade de vida e a manutenção da perda de peso.  
+
+Se julgar necessário, o(a) Sr(a) dispõe de tempo para que possa refletir sobre a sua participação, consultando, se necessário, seus familiares ou outras pessoas que possam ajudá-lo na tomada de decisão livre e esclarecida.
+
+O(a) Sr(a) não terá nenhum custo com a participação da pesquisa. Também estão assegurados ao (à) Sr(a) o direito a pedir indenizações e cobertura material para reparação a dano, causado pela participação da pesquisa.
+
+O(A) Sr.(a) pode entrar com contato com a pesquisadora responsável pela pesquisa Dra. Silvia Helena de Carvalho Sales Peres (shcperes@usp.br ) ou com o Brian Otávio de Melo Rodrigues (brian.otavio@usp.br). O(A) Sr.(a) também pode entrar em contato com o Comitê de Ética em Pesquisa com Seres Humanos da Faculdade de Odontologia- FOB BAURU (CEP/FOB) e com a Comissão Nacional de Ética em Pesquisa (CONEP), quando pertinente. O participante poderá entrar em contato Fone:Telefone/FAX (14)3235-8356 e-mail: cep@fob.usp.br, . O CEP/FOB-USP é um colegiado multi e transdisciplinar, independente, criado para defender os interesses dos participantes da pesquisa em sua integridade e dignidade e para contribuir no desenvolvimento da pesquisa dentro de padrões éticos.
+
+Ao assinar, a seguir, você atesta sua anuência com esta pesquisa, declarando que compreendeu seus objetivos, a forma como ela será realizada e os benefícios envolvidos, conforme descrição aqui efetuada.
+
+Pelo presente instrumento que atende às exigências legais, o Sr.(a) após leitura minuciosa das informações constantes neste TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO, devidamente explicada pelos profissionais em seus mínimos detalhes, ciente dos serviços e procedimentos aos quais será submetido, não restando quaisquer dúvidas a respeito do lido e explicado, DECLARA e FIRMA seu CONSENTIMENTO LIVRE E ESCLARECIDO concordando em participar da pesquisa proposta. Fica claro que o participante da pesquisa, pode a qualquer momento retirar seu CONSENTIMENTO LIVRE E ESCLARECIDO e deixar de participar desta pesquisa e ciente de que todas as informações prestadas tornar-se-ão confidenciais e guardadas por força de sigilo profissional (Cap. III, Art. 9º do Código de Ética Odontológica (Res. CFO-118/2012)).
+
+Por fim, como pesquisador(a) responsável pela pesquisa, DECLARO o cumprimento do disposto na Resolução CNS nº 466/12, contidos nos itens IV.3 e IV.4, este último se pertinente, item IV.5.a e na íntegra com a resolução CNS nº 466 de 12 dezembro de 2012.
+
+Por estarmos de acordo com o presente termo o firmamos em duas vias igualmente válidas (uma via para o participante da pesquisa e outra para o pesquisador) que serão rubricadas em todas as suas páginas e assinadas ao seu término, conforme o disposto pela Resolução CNS nº 466 de 12 dezembro de 2012, itens IV.3.f e IV.5.d.
+
+*
+Li e concordo participar.
