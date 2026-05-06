@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import { StudyLayout } from "../../components/StudyLayout";
 import { LikertQuestion } from "../../components/LikertQuestion";
@@ -12,20 +12,61 @@ export default function BAIPage() {
   const [showErrors, setShowErrors] = useState(false);
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState("");
+  const userScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const autoScrollingRef = useRef(false); // flag para ignorar scroll causado pelo próprio auto-scroll
 
   useEffect(() => {
     const saved = storage.get<Record<string, number>>(STORAGE_KEYS.BAI);
     if (saved) setResponses(saved);
   }, []);
 
+  // Detecta scroll MANUAL — ignora scroll causado pelo auto-scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (autoScrollingRef.current) return; // é o próprio auto-scroll, ignora
+      userScrollingRef.current = true;
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        userScrollingRef.current = false;
+      }, 1000);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
+  }, []);
+
   const handleChange = (item: number, value: number) => {
     setResponses(prev => {
       const next = { ...prev, [`item_${item}`]: value };
       storage.set(STORAGE_KEYS.BAI, next);
+
+      // Só auto-scrolla se todas as questões até a atual estão respondidas (sem pular)
+      if (!userScrollingRef.current) {
+        const allPreviousAnswered = Array.from({ length: item }, (_, i) => `item_${i + 1}`)
+          .every(k => k in next);
+
+        if (allPreviousAnswered && item < BAI_ITEMS.length) {
+          const nextEl = document.getElementById(`q-bai-${item + 1}`);
+          if (nextEl) {
+            setTimeout(() => {
+              if (!userScrollingRef.current) {
+                autoScrollingRef.current = true;
+                nextEl.scrollIntoView({ behavior: "smooth", block: "center" });
+                setTimeout(() => { autoScrollingRef.current = false; }, 600);
+              }
+            }, 200);
+          }
+        }
+      }
+
       return next;
     });
   };
 
+  // Derivado direto do estado — sempre confiável
   const answeredCount = Object.keys(responses).length;
   const totalItems = BAI_ITEMS.length;
   const allAnswered = answeredCount === totalItems;
@@ -46,7 +87,7 @@ export default function BAIPage() {
       await studyApi.saveBAI(id, responses);
       markStepComplete("bai");
       storage.remove(STORAGE_KEYS.BAI);
-      navigate("/css33"); // BAI → CSS-33
+      navigate("/css33");
     } catch (e: any) {
       setApiError("Erro ao salvar respostas. Tente novamente.");
     } finally {
@@ -69,7 +110,7 @@ export default function BAIPage() {
             <p className="font-medium mb-1">Instruções</p>
             <p>
               Abaixo está uma lista de sintomas comuns de ansiedade. Por favor, leia com cuidado cada item da lista.
-              Indique o quanto você tem sido incomodado(a) por cada sintoma durante a <strong>última semana</strong>, 
+              Indique o quanto você tem sido incomodado(a) por cada sintoma durante a <strong>última semana</strong>,
               incluindo hoje.
             </p>
           </div>
@@ -126,6 +167,16 @@ export default function BAIPage() {
 
         {/* Footer */}
         <div className="px-6 py-4 border-t border-gray-100 bg-gray-50 rounded-b-2xl">
+          {/* Indicador verde quando tudo respondido */}
+          {allAnswered && (
+            <div className="flex items-center justify-center gap-2 mb-3 text-green-600 font-medium text-sm animate-pulse">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Todas as perguntas respondidas!
+            </div>
+          )}
+
           {apiError && (
             <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-3 mb-3 text-sm">
               {apiError}
@@ -144,7 +195,11 @@ export default function BAIPage() {
             <button
               onClick={handleSubmit}
               disabled={loading}
-              className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md transition-all disabled:opacity-60"
+              className={`px-8 py-3 font-semibold rounded-xl shadow-md transition-all disabled:opacity-60 text-white ${
+                allAnswered
+                  ? "bg-green-600 hover:bg-green-700"
+                  : "bg-indigo-600 hover:bg-indigo-700"
+              }`}
             >
               {loading ? (
                 <span className="flex items-center gap-2">
