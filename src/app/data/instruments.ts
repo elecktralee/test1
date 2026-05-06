@@ -24,7 +24,7 @@ export const CSS33_ITEMS = [
   "Eu visito fontes confiáveis (por exemplo, http://bvsms.saude.gov.br/) ao pesquisar os sintomas ou os possíveis problemas de saúde que percebi.",
   "Eu me sinto mais ansioso ou estressado após pesquisar online sobre sintomas ou condições médicas percebidas.",
   "Eu perco meu apetite depois de pesquisar na Internet sobre os sintomas ou os possíveis problemas de saúde que percebi, pois fico enjoado.",
-  "Pesquisar na Internet sobre os sintomas ou os possíveis problemas de saúde que percebi interrompe ou torna mais lenta a minha comunicação on-line (por exemplo, mensagens instantâneas, Skype).",
+  "Pesquisar na Internet sobre os sintomas ou os possíveis problemas de saúde que percebi interrompe ou torna mais lenta a minha comunicação on-line (por exemplo, mensagens instantâneas, WhatsApp).",
   "Pesquisar na Internet sobre os sintomas ou os possíveis problemas de saúde que percebi interrompe minhas atividades de trabalho fora da Internet.",
   "Pesquisar na Internet os sintomas ou os possíveis problemas de saúde que percebi me faz consultar outras especialidades médicas.",
   "Discutir informações da Internet sobre um problema de saúde com meu médico me tranquiliza.",
