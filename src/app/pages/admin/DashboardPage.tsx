@@ -4,6 +4,7 @@ import { AdminLayout } from "../../components/admin/AdminLayout";
 import { adminApi } from "../../utils/api";
 import { DCCAPanel } from "./components/DCCAPanel";
 import { RegressionScatter } from "./components/RegressionScatter";
+import { ResultsPanel } from "./components/ResultsPanel";
 import {
   Users, CheckCircle2, Hourglass, Timer,
   Search, Globe, Calendar,
@@ -453,6 +454,7 @@ export default function DashboardPage() {
   const [loading,setLoading]     = useState(true);
   const [error,setError]         = useState("");
 
+  const [mainTab,setMainTab] = useState<"dashboard"|"results">("dashboard");
   const [crossTab,setCrossTab] = useState<"scatter"|"group"|"moderation"|"dcca">("scatter");
   const [corrX,setCorrX] = useState("css33_total");
   const [corrY,setCorrY] = useState("igt_net");
@@ -536,6 +538,34 @@ export default function DashboardPage() {
           </div>
           <span className="text-xs text-slate-300 font-mono">{new Date().toLocaleDateString("pt-BR",{weekday:"short",day:"2-digit",month:"short"})}</span>
         </div>
+
+        {/* ── Main Tabs ──────────────────────────────────────────────────── */}
+        <div className="flex gap-1 p-1 bg-slate-100 rounded-xl w-fit">
+          {([
+            {id:"dashboard", label:"📊 Visão Geral"},
+            {id:"results",   label:"📝 Resultados & Discussão"},
+          ] as const).map(t=>(
+            <button key={t.id} onClick={()=>setMainTab(t.id)}
+              className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${
+                mainTab===t.id
+                  ?"bg-white text-indigo-700 shadow-sm"
+                  :"text-slate-400 hover:text-slate-700"
+              }`}>
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        {/* ── TAB: RESULTADOS ────────────────────────────────────────────── */}
+        {mainTab==="results"&&analytics&&(
+          <ResultsPanel correlationData={analytics.correlationData} metrics={metrics}/>
+        )}
+        {mainTab==="results"&&!analytics&&(
+          <div className="bg-white rounded-2xl border border-slate-100 p-10 text-center text-slate-300">Carregando dados…</div>
+        )}
+
+        {/* ── TAB: DASHBOARD (conteúdo existente abaixo) ─────────────────── */}
+        {mainTab==="dashboard"&&<>
 
         {/* ── KPIs ───────────────────────────────────────────────────────── */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -897,6 +927,9 @@ export default function DashboardPage() {
             ))}
           </div>
         </div>
+
+      </div>
+        </>}
 
       </div>
     </AdminLayout>
