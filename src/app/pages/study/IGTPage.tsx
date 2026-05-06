@@ -606,7 +606,7 @@ export default function IGTPage() {
         {/* GAME AREA */}
         <div className="p-4 sm:p-5">
           <div className="grid grid-cols-4 gap-2 sm:gap-3 mb-4" style={{ perspective: "1000px" }}>
-            {deckMapping.map((deckId, i) => (
+            {(["A", "B", "C", "D"] as DeckId[]).map((deckId, i) => (
               <DeckCard
                 key={deckId}
                 deck={deckId}
