@@ -205,8 +205,6 @@ export default function TableViewPage({ dataset }: TableViewPageProps) {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [deleteId, setDeleteId] = useState<string | null>(null);
-  const [deleting, setDeleting] = useState(false);
 
   const config = CONFIGS[dataset];
 
@@ -224,19 +222,6 @@ export default function TableViewPage({ dataset }: TableViewPageProps) {
   }, [dataset, config]);
 
   useEffect(() => { load(); }, [load]);
-
-  const handleDelete = async (id: string) => {
-    setDeleting(true);
-    try {
-      await adminApi.deleteParticipant(id);
-      setDeleteId(null);
-      await load();
-    } catch (e: any) {
-      setError("Erro ao deletar: " + e.message);
-    } finally {
-      setDeleting(false);
-    }
-  };
 
   return (
     <AdminLayout>
@@ -258,58 +243,27 @@ export default function TableViewPage({ dataset }: TableViewPageProps) {
           <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-4">{error}</div>
         )}
 
-        {/* Modal de confirmação de delete */}
-        {deleteId && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-            <div className="bg-white rounded-2xl shadow-2xl p-7 max-w-sm w-full mx-4 border border-slate-200">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center">
-                  <Trash2 className="w-5 h-5 text-red-600" />
-                </div>
-                <div>
-                  <p className="font-black text-slate-800">Apagar participação?</p>
-                  <p className="text-xs text-slate-400 font-mono">{deleteId.slice(0, 8)}…</p>
-                </div>
-              </div>
-              <p className="text-sm text-slate-500 mb-5">
-                Todos os dados deste participante (questionários, IGT, sociodemográfico) serão removidos permanentemente. Esta ação não pode ser desfeita.
-              </p>
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setDeleteId(null)}
-                  disabled={deleting}
-                  className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition-colors disabled:opacity-40"
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={() => handleDelete(deleteId)}
-                  disabled={deleting}
-                  className="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm transition-colors disabled:opacity-40 flex items-center justify-center gap-2"
-                >
-                  {deleting ? (
-                    <><span className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />Apagando…</>
-                  ) : "Apagar"}
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
         <DataTable
           data={data}
           columns={[
             ...config.columns,
             ...(dataset === "participants" ? [{
-              key: "participant_id",
-              label: "",
-              render: (v: any) => (
+              key: "actions",
+              label: "Ações",
+              render: (_v: any, row: any) => (
                 <button
-                  onClick={() => setDeleteId(v)}
-                  className="p-1.5 rounded-lg text-slate-300 hover:text-red-500 hover:bg-red-50 transition-colors"
-                  title="Apagar participação"
+                  onClick={async () => {
+                    try {
+                      await adminApi.deleteParticipant(row.participant_id);
+                      setData(prev => prev.filter(p => p.participant_id !== row.participant_id));
+                    } catch (err) {
+                      console.error("Erro ao deletar participante", err);
+                      alert("Falha ao deletar participante");
+                    }
+                  }}
+                  className="text-red-600 hover:text-red-800"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 size={16} />
                 </button>
               ),
             }] : []),
