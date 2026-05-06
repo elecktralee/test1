@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import { StudyLayout } from "../../components/StudyLayout";
 import { LikertQuestion } from "../../components/LikertQuestion";
@@ -12,6 +12,8 @@ export default function CSS33Page() {
   const [showErrors, setShowErrors] = useState(false);
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState("");
+  const userScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Restore saved responses
   useEffect(() => {
@@ -19,11 +21,48 @@ export default function CSS33Page() {
     if (saved) setResponses(saved);
   }, []);
 
-  // Auto-save on change
+  // Detect manual scroll — suspend auto-scroll for 1s
+  useEffect(() => {
+    const handleScroll = () => {
+      userScrollingRef.current = true;
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        userScrollingRef.current = false;
+      }, 1000);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
+  }, []);
+
   const handleChange = (item: number, value: number) => {
     setResponses(prev => {
       const next = { ...prev, [`item_${item}`]: value };
       storage.set(STORAGE_KEYS.CSS33, next);
+
+      // Auto-scroll to next unanswered question (only if sequential)
+      if (!userScrollingRef.current) {
+        // Find the highest consecutively answered item from the start
+        let lastConsecutive = 0;
+        for (let i = 1; i <= CSS33_ITEMS.length; i++) {
+          if (`item_${i}` in next) lastConsecutive = i;
+          else break;
+        }
+        // Only scroll if current item is the leading edge
+        if (item === lastConsecutive) {
+          const nextIndex = item + 1;
+          if (nextIndex <= CSS33_ITEMS.length) {
+            setTimeout(() => {
+              if (!userScrollingRef.current) {
+                document.getElementById(`q-${nextIndex}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }
+            }, 150);
+          }
+        }
+      }
+
       return next;
     });
   };
@@ -35,7 +74,6 @@ export default function CSS33Page() {
   const handleSubmit = async () => {
     if (!allAnswered) {
       setShowErrors(true);
-      // Scroll to first unanswered
       const firstUnanswered = CSS33_ITEMS.findIndex((_, i) => !(`item_${i + 1}` in responses));
       if (firstUnanswered >= 0) {
         document.getElementById(`q-${firstUnanswered + 1}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -49,7 +87,7 @@ export default function CSS33Page() {
       await studyApi.saveCSS33(id, responses);
       markStepComplete("css33");
       storage.remove(STORAGE_KEYS.CSS33);
-      navigate("/gse"); // CSS-33 → GSE
+      navigate("/gse");
     } catch (e: any) {
       setApiError("Erro ao salvar respostas. Tente novamente.");
     } finally {
@@ -73,8 +111,8 @@ export default function CSS33Page() {
           <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-4 text-sm text-indigo-800 mb-1">
             <p className="font-medium mb-1">Instruções</p>
             <p>
-              Abaixo estão afirmações sobre o uso da internet para buscar informações de saúde. 
-              Indique com que <strong>frequência</strong> cada afirmação se aplica a você, 
+              Abaixo estão afirmações sobre o uso da internet para buscar informações de saúde.
+              Indique com que <strong>frequência</strong> cada afirmação se aplica a você,
               considerando os <strong>últimos 3 meses</strong>.
             </p>
           </div>
@@ -135,6 +173,17 @@ export default function CSS33Page() {
               {apiError}
             </div>
           )}
+
+          {/* Green approval indicator */}
+          {allAnswered && (
+            <div className="flex items-center justify-center gap-2 mb-3 text-green-600 font-medium text-sm animate-pulse">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Todas as perguntas respondidas!
+            </div>
+          )}
+
           <div className="flex justify-between items-center">
             <div className="flex gap-2 items-center">
               <button
@@ -148,7 +197,11 @@ export default function CSS33Page() {
             <button
               onClick={handleSubmit}
               disabled={loading}
-              className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md transition-all disabled:opacity-60"
+              className={`px-8 py-3 font-semibold rounded-xl shadow-md transition-all disabled:opacity-60 text-white ${
+                allAnswered
+                  ? "bg-green-600 hover:bg-green-700"
+                  : "bg-indigo-600 hover:bg-indigo-700"
+              }`}
             >
               {loading ? (
                 <span className="flex items-center gap-2">
