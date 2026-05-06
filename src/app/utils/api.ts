@@ -102,4 +102,9 @@ export const adminApi = {
 
   analytics: () =>
     request<any>("/admin/analytics"),
+
+  deleteParticipant: (participantId: string) =>
+    request<{ success: boolean }>(`/admin/participants/${participantId}`, {
+      method: "DELETE",
+    }),
 };
