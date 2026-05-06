@@ -158,7 +158,7 @@ export function DCCAPanel({ data }: Props) {
   const pairSummaries = useMemo(() => {
     return DCCA_PAIRS.map(p => {
       const { x, y, n } = getSeriesForPair(p.xKey, p.yKey, sortKey);
-      if (n < 8) return { ...p, n, rho: null, rhoMin: null, rhoMax: null, pearson: null };
+      if (n < 4) return { ...p, n, rho: null, rhoMin: null, rhoMax: null, pearson: null };
       const sMin = 4;
       const sMax = Math.max(4, Math.floor(n / 4));
       const curve = dccaCurve(x, y, sMin, sMax);
@@ -174,7 +174,7 @@ export function DCCAPanel({ data }: Props) {
   const detail = useMemo(() => {
     const p = DCCA_PAIRS[selectedPair];
     const { x, y, n } = getSeriesForPair(p.xKey, p.yKey, sortKey);
-    if (n < 8) return { curve: [], n, pearson: null, sMax: 0 };
+    if (n < 4) return { curve: [], n, pearson: null, sMax: 0 };
     const sMin = 4;
     const sMax = Math.max(4, Math.floor(n / 4));
     const curve = dccaCurve(x, y, sMin, sMax);
@@ -185,8 +185,8 @@ export function DCCAPanel({ data }: Props) {
   // Multi-curve chart (all pairs on same axes)
   const allCurves = useMemo(() => {
     if (!showAll) return null;
-    const refN = pairSummaries.find(p => p.n >= 8)?.n ?? 0;
-    if (refN < 8) return null;
+    const refN = pairSummaries.find(p => p.n >= 4)?.n ?? 0;
+    if (refN < 4) return null;
     const sMin = 4;
     const sMax = Math.max(4, Math.floor(refN / 4));
     const sArr = Array.from({ length: sMax - sMin + 1 }, (_, i) => i + sMin);
@@ -194,14 +194,14 @@ export function DCCAPanel({ data }: Props) {
       const row: Record<string, number | null> = { s };
       DCCA_PAIRS.forEach(p => {
         const { x, y, n } = getSeriesForPair(p.xKey, p.yKey, sortKey);
-        if (n >= 8) row[p.label] = dccaAtScale(x, y, s);
+        if (n >= 4) row[p.label] = dccaAtScale(x, y, s);
       });
       return row;
     });
   }, [data, sortKey, showAll, pairSummaries]);
 
   const sp = DCCA_PAIRS[selectedPair];
-  const hasData = pairSummaries.some(p => p.n >= 8);
+  const hasData = pairSummaries.some(p => p.n >= 4);
 
   return (
     <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 space-y-5">
@@ -249,7 +249,7 @@ export function DCCAPanel({ data }: Props) {
         {!hasData ? (
           <div className="flex flex-col items-center justify-center h-32 border border-dashed border-slate-200 rounded-xl text-slate-400">
             <span className="text-2xl mb-1">📉</span>
-            <p className="text-sm">Dados insuficientes (mínimo: 8 participantes)</p>
+            <p className="text-sm">Dados insuficientes (mínimo: 4 participantes)</p>
           </div>
         ) : (
           <div className="rounded-xl border border-slate-200 overflow-x-auto">
@@ -354,7 +354,7 @@ export function DCCAPanel({ data }: Props) {
           {detail.curve.length < 2 ? (
             <div className="flex flex-col items-center justify-center h-48 border border-dashed border-slate-200 rounded-xl text-slate-400">
               <span className="text-2xl mb-1">📉</span>
-              <p className="text-sm">Dados insuficientes para este par (mín. 8 participantes)</p>
+              <p className="text-sm">Dados insuficientes para este par (mín. 4 participantes)</p>
             </div>
           ) : !showAll ? (
             /* Single pair curve */
