@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export interface StudyStep {
   key: string;
@@ -24,6 +24,11 @@ interface StudyLayoutProps {
 export function StudyLayout({ currentStep, children, maxWidth = "max-w-2xl" }: StudyLayoutProps) {
   const currentIndex = STUDY_STEPS.findIndex(s => s.key === currentStep);
   const progress = currentIndex >= 0 ? ((currentIndex + 1) / STUDY_STEPS.length) * 100 : 0;
+
+  // Scroll to top on every page navigation (fixes mobile mid-page issue)
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [currentStep]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
