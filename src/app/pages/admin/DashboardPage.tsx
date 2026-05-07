@@ -5,6 +5,7 @@ import { adminApi } from "../../utils/api";
 import { DCCAPanel } from "./components/DCCAPanel";
 import { RegressionScatter } from "./components/RegressionScatter";
 import { ResultsPanel } from "../../components/ResultsPanel";
+import { CSS33ValidationPanel } from "./components/CSS33ValidationPanel";
 import {
   Users, CheckCircle2, Hourglass, Timer,
   Search, Globe, Calendar,
