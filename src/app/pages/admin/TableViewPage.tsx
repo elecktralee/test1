@@ -253,12 +253,16 @@ export default function TableViewPage({ dataset }: TableViewPageProps) {
               render: (_v: any, row: any) => (
                 <button
                   onClick={async () => {
-                    try {
-                      await adminApi.deleteParticipant(row.participant_id);
-                      setData(prev => prev.filter(p => p.participant_id !== row.participant_id));
-                    } catch (err) {
-                      console.error("Erro ao deletar participante", err);
-                      alert("Falha ao deletar participante");
+                    const confirmacao = window.confirm("ATENÇÃO: Tem certeza que deseja apagar todos os dados deste participante? Esta ação não pode ser desfeita.");
+                    
+                    if (confirmacao) {
+                      try {
+                        await adminApi.deleteParticipant(row.participant_id);
+                        setData(prev => prev.filter(p => p.participant_id !== row.participant_id));
+                      } catch (err) {
+                        console.error("Erro ao deletar participante", err);
+                        alert("Falha ao deletar participante");
+                      }
                     }
                   }}
                   className="text-red-600 hover:text-red-800"
