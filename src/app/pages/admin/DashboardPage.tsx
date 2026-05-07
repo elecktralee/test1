@@ -545,6 +545,22 @@ export default function DashboardPage() {
           {([
             {id:"dashboard", label:"📊 Visão Geral"},
             {id:"results",   label:"📝 Resultados & Discussão"},
+            {id:"validation", label:"✅ Validação CSS-33"},
+          ] as const).map(t=>(
+            <button key={t.id} onClick={()=>setMainTab(t.id)}
+              className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${
+                mainTab===t.id
+                  ?"bg-white text-indigo-700 shadow-sm"
+                  :"text-slate-400 hover:text-slate-700"
+              }`}>
+              {t.label}
+            </button>
+          ))}
+        </div>
+        <div className="flex gap-1 p-1 bg-slate-100 rounded-xl w-fit">
+          {([
+            {id:"dashboard", label:"📊 Visão Geral"},
+            {id:"results",   label:"📝 Resultados & Discussão"},
             {id:"validation", label:"✅ Validação CSS-33"}, // ADICIONE ESTA LINHA AQUI
           ] as const).map(t=>(
         <div className="flex gap-1 p-1 bg-slate-100 rounded-xl w-fit">
