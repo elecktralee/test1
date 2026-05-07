@@ -4,7 +4,7 @@ import { AdminLayout } from "../../components/admin/AdminLayout";
 import { adminApi } from "../../utils/api";
 import { DCCAPanel } from "./components/DCCAPanel";
 import { RegressionScatter } from "./components/RegressionScatter";
-import { ResultsPanel } from "./components/ResultsPanel";
+import { ResultsPanel } from "../../components/ResultsPanel";
 import {
   Users, CheckCircle2, Hourglass, Timer,
   Search, Globe, Calendar,
