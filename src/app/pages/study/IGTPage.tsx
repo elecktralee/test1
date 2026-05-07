@@ -416,7 +416,7 @@ export default function IGTPage() {
 
   // ── Choose deck ───────────────────────────────────────────────────────────
   const handleChooseDeck = (deckId: DeckId) => {
-    if (phase !== "choosing") return;
+    if (phase !== "choosing" || trials.length >= 100) return;
     const responseTime = Date.now() - trialStartTime.current;
     const trialNum = trials.length + 1;
     const { loss, newPools } = drawLoss(deckId, pools);
@@ -466,18 +466,19 @@ export default function IGTPage() {
 
   // ── Collect (advance or finish) ───────────────────────────────────────────
   const collect = () => {
-    if (trials.length >= IGT_TOTAL_TRIALS) {
+    if (trials.length >= 100) {
       finish(trials, balance);
-    } else {
-      setPhase("choosing");
-      setChosenDeck(null);
-      trialStartTime.current = Date.now();
-    }
+      return;
+    } 
+    
+    setPhase("choosing");
+    setChosenDeck(null);
+    trialStartTime.current = Date.now();
   };
 
   const trialNumber = trials.length;
   const progress = (trialNumber / IGT_TOTAL_TRIALS) * 100;
-  const isComplete = trialNumber >= IGT_TOTAL_TRIALS;
+  const isComplete = trials.length >= 100;
 
   // ── INSTRUCTIONS ──────────────────────────────────────────────────────────
   if (phase === "instructions") {
