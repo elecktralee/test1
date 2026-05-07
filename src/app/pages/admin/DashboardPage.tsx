@@ -455,7 +455,7 @@ export default function DashboardPage() {
   const [loading,setLoading]     = useState(true);
   const [error,setError]         = useState("");
 
-  const [mainTab,setMainTab] = useState<"dashboard"|"results">("dashboard");
+ const [mainTab,setMainTab] = useState<"dashboard"|"results"|"validation">("dashboard");
   const [crossTab,setCrossTab] = useState<"scatter"|"group"|"moderation"|"dcca">("scatter");
   const [corrX,setCorrX] = useState("css33_total");
   const [corrY,setCorrY] = useState("igt_net");
@@ -545,6 +545,12 @@ export default function DashboardPage() {
           {([
             {id:"dashboard", label:"📊 Visão Geral"},
             {id:"results",   label:"📝 Resultados & Discussão"},
+            {id:"validation", label:"✅ Validação CSS-33"}, // ADICIONE ESTA LINHA AQUI
+          ] as const).map(t=>(
+        <div className="flex gap-1 p-1 bg-slate-100 rounded-xl w-fit">
+          {([
+            {id:"dashboard", label:"📊 Visão Geral"},
+            {id:"results",   label:"📝 Resultados & Discussão"},
           ] as const).map(t=>(
             <button key={t.id} onClick={()=>setMainTab(t.id)}
               className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${
@@ -558,6 +564,20 @@ export default function DashboardPage() {
         </div>
 
         {/* ── TAB: RESULTADOS ────────────────────────────────────────────── */}
+        {mainTab==="results"&&analytics&&(
+          <ResultsPanel correlationData={analytics.correlationData} metrics={metrics}/>
+        )}
+        {mainTab==="results"&&!analytics&&(
+          <div className="bg-white rounded-2xl border border-slate-100 p-10 text-center text-slate-300">Carregando dados…</div>
+        )}
+
+        {/* ── TAB: VALIDAÇÃO CSS-33 ──────────────────────────────────────── */}
+        {mainTab==="validation" && (
+          <CSS33ValidationPanel />
+        )}
+
+        {/* ── TAB: DASHBOARD (conteúdo existente abaixo) ─────────────────── */}
+        {mainTab==="dashboard"&&<>
         {mainTab==="results"&&analytics&&(
           <ResultsPanel correlationData={analytics.correlationData} metrics={metrics}/>
         )}
