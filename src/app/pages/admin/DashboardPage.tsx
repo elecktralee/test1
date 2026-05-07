@@ -1,4 +1,3 @@
-@@ -1,943 +1,24 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router";
 import { AdminLayout } from "../../components/admin/AdminLayout";
