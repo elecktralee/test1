@@ -925,10 +925,9 @@ export default function DashboardPage() {
                 <span>{link.icon}</span><span>{link.label}</span>
               </button>
             ))}
-          </div>
+         </div>
         </div>
 
-      </div>
         </>}
 
       </div>
