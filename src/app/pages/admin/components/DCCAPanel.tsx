@@ -160,7 +160,7 @@ export function DCCAPanel({ data }: Props) {
       const { x, y, n } = getSeriesForPair(p.xKey, p.yKey, sortKey);
       if (n < 4) return { ...p, n, rho: null, rhoMin: null, rhoMax: null, pearson: null };
       const sMin = 4;
-      const sMax = Math.max(4, Math.floor(n / 4));
+      const sMax = Math.max(9, Math.floor(n / 2));
       const curve = dccaCurve(x, y, sMin, sMax);
       const pearson = pearsonR(x, y);
       const sMid = Math.floor(n / 5);
@@ -176,7 +176,7 @@ export function DCCAPanel({ data }: Props) {
     const { x, y, n } = getSeriesForPair(p.xKey, p.yKey, sortKey);
     if (n < 4) return { curve: [], n, pearson: null, sMax: 0 };
     const sMin = 4;
-    const sMax = Math.max(4, Math.floor(n / 4));
+    const sMax = Math.max(9, Math.floor(n / 2));
     const curve = dccaCurve(x, y, sMin, sMax);
     const pearson = pearsonR(x, y);
     return { curve, n, pearson, sMax };
@@ -188,7 +188,7 @@ export function DCCAPanel({ data }: Props) {
     const refN = pairSummaries.find(p => p.n >= 4)?.n ?? 0;
     if (refN < 4) return null;
     const sMin = 4;
-    const sMax = Math.max(4, Math.floor(refN / 4));
+    const sMax = Math.max(9, Math.floor(refN / 2));
     const sArr = Array.from({ length: sMax - sMin + 1 }, (_, i) => i + sMin);
     return sArr.map(s => {
       const row: Record<string, number | null> = { s };
